@@ -6,9 +6,9 @@ interface ICreateSpecificationDTO {
 }
 
 interface ISpecificationsRepository {
-  // list(): Specification[];
-  create(data: ICreateSpecificationDTO): void;
-  findByName(name: string): Specification | undefined;
+  list(): Promise<Specification[]>;
+  create(data: ICreateSpecificationDTO): Promise<void>;
+  findByName(name: string): Promise<Specification | undefined>;
 }
 
 export { ISpecificationsRepository, ICreateSpecificationDTO };
