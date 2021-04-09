@@ -1,7 +1,8 @@
 import { inject, injectable } from 'tsyringe';
 
-import { AppError } from '../../../../errors/AppError';
-import { UsersRepository } from '../../repositories/implementations/UsersRepository';
+import { AppError } from '@errors/AppError';
+import { UsersRepository } from '@modules/accounts/infra/typeorm/repositories/UsersRepository';
+import { deleteFile } from '@utils/file';
 
 interface IRequest {
   userId: string;
@@ -20,6 +21,8 @@ class UpdateUserAvatarUseCase {
     if (!user) {
       throw new AppError('User not found');
     }
+
+    if (user.avatar) deleteFile(`./tmp/avatar/${user.avatar}`);
 
     user.avatar = avatarFile;
 
